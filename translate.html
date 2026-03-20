@@ -1,0 +1,157 @@
+{% extends "base.html" %}
+{% block content %}
+
+<div class="container">
+
+    <h1 class="title">
+        Code-Mixed Text Analysis Results
+    </h1>
+
+    <p class="subtitle">
+        <p style="margin: 20px 0; font-size: 18px;"></p>
+        <h4>Word Detection • Dominance • Intent • Code-Mixing • Social Media Analysis</h4>
+    </p>
+
+    <!-- Original Sentence -->
+    <div class="card">
+        <h3>Original Sentence</h3>
+        <p class="sentence-box">{{ sentence }}</p>
+    </div>
+
+    <!-- Word-wise Detection -->
+    <div class="card">
+        <h3>Word-wise Language Detection</h3>
+        <div class="tags">
+            {% for word, lang in results %}
+                <span class="tag {{ lang|lower }}">
+                    {{ word }} <small>[{{ lang }}]</small>
+                </span>
+            {% endfor %}
+        </div>
+    </div>
+
+    <!--  Language Dominance -->
+    <div class="card highlight">
+        <h3>Language Dominance Analysis</h3>
+
+        <p>Kannada Usage: {{ kannada_percent }}%</p>
+        <div class="bar">
+            <div class="bar-fill kn" data-width="{{ kannada_percent }}"></div>
+        </div>
+
+        <p>English Usage: {{ english_percent }}%</p>
+        <div class="bar">
+            <div class="bar-fill en" data-width="{{english_percent}}"></div>
+        </div>
+
+        <p class="dominance-text">
+            Overall: <strong>{{ dominance }}</strong>
+        </p>
+    </div>
+
+    <!--  Code-Mixing Pattern -->
+    <div class="card highlight">
+        <h3>Code-Mixing Pattern Analysis</h3>
+
+        <p>
+            <strong>Pattern:</strong>
+            <span style="color:#3f51b5;">{{ pattern }}</span>
+        </p>
+
+        <p style="margin-top:10px;">
+            {% if pattern == "Pure Kannada (Monolingual)" %}
+                This sentence is written entirely in Kannada with no English influence.
+            {% elif pattern == "Pure English (Monolingual)" %}
+                This sentence is written entirely in English.
+            {% elif pattern == "Low Code-Mixing" %}
+                Minor insertion of the secondary language.
+            {% elif pattern == "Moderate Code-Mixing" %}
+                Balanced mixing of Kannada and English within the sentence.
+            {% else %}
+                High degree of Kannada–English mixing, common in informal social media usage.
+{% endif %}
+
+        </p>
+    </div>
+
+
+
+<!-- Intent Detection -->
+<div class="card highlight">
+    <h3>Intent Detection</h3>
+
+    <p>
+    <strong>Detected Intent:</strong>
+    <span style="color:#3f51b5;">{{ intent }}</span>
+</p>
+
+    {% if intent == "Question" %}
+    The sentence is asking for information or clarification.
+
+    {% elif intent == "Request" %}
+    The sentence requests an action or help from someone.
+
+    {% elif intent == "Greeting" %}
+    The sentence is used to start or acknowledge a conversation.
+
+    {% elif intent == "Opinion" %}
+    The sentence expresses a personal opinion or viewpoint.
+
+    {% elif intent == "Complaint" %}
+    The sentence expresses dissatisfaction or a problem.
+
+    {% elif intent == "Appreciation" %}
+    The sentence shows praise, appreciation, or positive feedback.
+
+    {% elif intent == "Suggestion" %}
+    The sentence provides advice or a recommendation.
+
+    {% elif intent == "Command" %}
+    The sentence instructs someone to perform an action.
+
+    {% elif intent == "Emotion" %}
+    The sentence expresses feelings such as happiness, anger, or excitement.
+
+    {% else %}
+    The sentence conveys general information or a neutral statement.
+
+{% endif %}
+
+</div>
+
+<!--  Social Media Text Classification -->
+<div class="card highlight">
+    <h3>Social Media Text Classification</h3>
+
+    <p>
+        <strong>Detected Type:</strong>
+        <span style="color:#3f51b5;">
+            {{ social_type }}
+        </span>
+    </p>
+
+    <p style="margin-top:10px;">
+        {% if social_type == "Short Chat / Reply" %}
+            Very Short message,typical of replies or chats.
+        {% elif social_type == "Expressive / Emotional Post" %}
+            Emotionally expressive text with emojis or emphasis.
+        {% elif social_type == "Social Media Engagement Post" %}
+            Post intended for interaction using hashtags or mentions.
+        {% elif social_type == "Descriptive / Informative Post" %}
+            Longer message explaining or informing something .
+        {% else %}
+            This is a casual social media post with mixed language usage.
+        {% endif %}
+    </p>
+</div>
+
+
+    <div style="text-align:center; margin-top:30px;">
+        <a href="/home">
+            <button class="btn">TRY ANOTHER SENTENCE</button>
+        </a>
+    </div>
+
+</div>
+
+{% endblock %}
