@@ -18,9 +18,4 @@ The goal is to enable better understanding of multilingual text for applications
 - **NLTK / SpaCy** – text preprocessing and tokenization  
 - **Scikit-learn / ML models** – classification of code-switched text  
 - **VS Code** – development environment  
-- **Git & GitHub** – version control  
-
-## Installation
-1. Clone the repository:
-```bash
-git clone https://github.com/<your-username>/codeswitch.git
+  
